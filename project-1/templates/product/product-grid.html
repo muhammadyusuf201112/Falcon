@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+<div class="card mb-3">
+            <div class="card-body">
+              <div class="row flex-between-center">
+                <div class="col-sm-auto mb-2 mb-sm-0">
+                  <h6 class="mb-0">Showing 1-24 of 205 Products  {{ request.user }}</h6>
+                </div>
+                <div class="col-sm-auto">
+                  <div class="row gx-2 align-items-center">
+                    <div class="col-auto">
+                      <form class="row gx-2">
+                        <div class="col-auto"><small>Sort by:</small></div>
+                        <div class="col-auto">
+                          <select class="form-select form-select-sm" aria-label="Bulk actions">
+                            <option selected="">Best Match</option>
+                            <option value="Refund">Newest</option>
+                            <option value="Delete">Price</option>
+                          </select>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-auto pe-0"> <a class="text-600 px-1" href="../../../app/e-commerce/product/product-list.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Product List"><span class="fas fa-list-ul"></span></a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+
+                  {% for i in products %}
+                      {% if i.is_available %}
+                <div class="mb-4 col-md-6 col-lg-4">
+                  <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="../../../app/e-commerce/product/product-details.html"><img class="img-fluid rounded-top" src="{{ i.products.first.image.url }}" alt="" /></a>
+                          
+                          {% if i.is_new %}
+                          <span class="badge rounded-pill bg-success position-absolute mt-2 me-2 z-index-2 top-0 end-0">New</span>
+                          {% endif %}
+                          
+                      </div>
+                      <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="{% url 'product' i.id %}">{{ i.name }}</a></h5>
+                        <p class="fs--1 mb-3"><a class="text-500" href="#!">{{ i.category }}</a></p>
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> {{ i.price }}
+                        </h5>
+                          {% if i.is_available %}
+                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                        {% else %}
+                          <p class="fs--1 mb-1">Stock: <strong class="text-success">Not Available</strong>
+                          {% endif %}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-between-center px-3">
+                      <div><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-warning"></span><span class="fa fa-star text-300"></span><span class="ms-1">(8)</span>
+                      </div>
+                      <div><a class="btn btn-sm btn-falcon-default me-2" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"><span class="far fa-heart"></span></a><a class="btn btn-sm btn-falcon-default" href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart"><span class="fas fa-cart-plus"></span></a></div>
+                    </div>
+                  </div>
+                </div>
+                      {% endif %}
+                  {% endfor %}
+
+
+
+              </div>
+            </div>
+            <div class="card-footer bg-light d-flex justify-content-center">
+              <div>
+                <button class="btn btn-falcon-default btn-sm me-2" type="button" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev"><span class="fas fa-chevron-left"></span></button><a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a><a class="btn btn-sm btn-falcon-default me-2" href="#!">2</a><a class="btn btn-sm btn-falcon-default me-2" href="#!"> <span class="fas fa-ellipsis-h"></span></a><a class="btn btn-sm btn-falcon-default me-2" href="#!">35</a>
+                <button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next"><span class="fas fa-chevron-right">     </span></button>
+              </div>
+            </div>
+          </div>
+{% endblock main %}
+
+
